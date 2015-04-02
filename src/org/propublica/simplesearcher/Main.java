@@ -1,5 +1,21 @@
 package org.propublica.simplesearcher;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Date;
+
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
@@ -14,22 +30,14 @@ import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.Date;
 
 import static org.apache.lucene.index.IndexWriterConfig.OpenMode;
 
-public class Main {
+public class Main extends Application {
 
     private static void findDocs(Path p, Path indexPath, IndexWriter writer) throws IOException {
         IndexReader reader = DirectoryReader.open(writer, true);
@@ -74,7 +82,14 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("indexer.fxml"));
+        primaryStage.setTitle("Simple Searcher");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.show();
+
+
         final Path p = Paths.get("");
         System.out.println("Indexing all documents in: " + p);
 
@@ -104,5 +119,9 @@ public class Main {
         } catch (ParseException | IOException e) {
             System.out.println("Couldn't build index: " + e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }
