@@ -8,17 +8,42 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.Path;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.Date;
 
 import static org.apache.lucene.index.IndexWriterConfig.OpenMode;
 
 public class Main {
 
     public static void findDocs(Path p, IndexWriter writer) throws IOException {
-        if(Files.isDirectory(p)) {
-//            Files.walkFileTree(p, )
+        if(Files.isDirectory(p)) { // shld only take a directory tbh
+            Files.walkFileTree(p, new  FileVisitor<Path>() {
+                @Override
+                public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+                    System.out.println("Starting: " + path);
+                    return null;
+                }
+
+                @Override
+                public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+                    Date d = new Date();
+
+                    System.out.println("Finished indexing: " + path + " in " + (d.getTime() - (new Date().getTime())) + "ms");
+                    return null;
+                }
+
+                @Override
+                public FileVisitResult visitFileFailed(Path path, IOException e) {
+                    return null;
+                }
+
+                @Override
+                public FileVisitResult postVisitDirectory(Path path, IOException e) throws IOException {
+                    System.out.println("Finished: " + path);
+                    return null;
+                }
+            });
         }
     }
 
