@@ -17,7 +17,8 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -74,7 +75,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        final Path p = Paths.get("").toAbsolutePath();
+        final Path p = Paths.get("");
         System.out.println("Indexing all documents in: " + p);
 
         final Path indexPath = p.resolve(".index");
