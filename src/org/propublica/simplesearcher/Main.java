@@ -4,9 +4,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
-import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.index.*;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
@@ -18,11 +16,6 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
-import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.AutoDetectParser;
-import org.apache.tika.parser.Parser;
-import org.apache.tika.sax.BodyContentHandler;
-import org.xml.sax.SAXException;
 
 import java.io.*;
 import java.nio.file.FileVisitResult;
@@ -38,6 +31,7 @@ import static org.apache.lucene.index.IndexWriterConfig.OpenMode;
 public class Main {
 
     private static void findDocs(Path p, Path indexPath, IndexWriter writer) throws IOException {
+        IndexReader reader = DirectoryReader.open(writer, true);
         if(Files.isDirectory(p)) {
             // shld only take a directory tbh
             Files.walkFileTree(p, new SimpleFileVisitor<Path>() {
@@ -53,10 +47,16 @@ public class Main {
 
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+                    if(reader.docFreq(new Term("filename", path.toString())) > 0) {
+                        System.out.println("Already indexed: " + path);
+                        return FileVisitResult.CONTINUE;
+                    }
+
                     final Date d = new Date();
-                    Tika t = new Tika();
-                    File f = new File(path.toString());
-                    try  {
+
+                    try {
+                        Tika t = new Tika();
+                        File f = new File(path.toString());
                         Document doc = new Document();
                         String c = t.parseToString(f);
                         doc.add(new Field("text", c, TextField.TYPE_STORED));
@@ -65,6 +65,7 @@ public class Main {
                     } catch (TikaException e) {
                         System.out.println("Couldn't index: " + path + " reason: " + e.getMessage());
                     }
+
                     System.out.println("Finished indexing: " + path + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
                     return FileVisitResult.CONTINUE;
                 }
