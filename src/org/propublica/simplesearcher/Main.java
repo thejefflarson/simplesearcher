@@ -4,22 +4,27 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
+import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.IndexSearcher;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
+import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.AutoDetectParser;
+import org.apache.tika.parser.Parser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.SAXException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -38,7 +43,7 @@ public class Main {
             Files.walkFileTree(p, new SimpleFileVisitor<Path>() {
                 @Override
                 public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
-                    if(p == indexPath) {
+                    if(p.equals(indexPath)) {
                         return FileVisitResult.SKIP_SUBTREE;
                     } else {
                         System.out.println("Starting Directory: " + path);
@@ -49,18 +54,15 @@ public class Main {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
                     final Date d = new Date();
-                    final File f = new File(path.toString());
-
-                    BodyContentHandler h = new BodyContentHandler();
-                    AutoDetectParser p = new AutoDetectParser();
-                    Metadata m = new Metadata();
-                    try (InputStream is = new FileInputStream(f)) {
+                    Tika t = new Tika();
+                    File f = new File(path.toString());
+                    try  {
                         Document doc = new Document();
-                        p.parse(is, h, m);
-                        doc.add(new TextField("text", h.toString(), Field.Store.YES));
-                        doc.add(new StringField("filename", path.toString(), Field.Store.YES));
+                        String c = t.parseToString(f);
+                        doc.add(new Field("text", c, TextField.TYPE_STORED));
+                        doc.add(new Field("filename", path.toString(), StringField.TYPE_STORED));
                         writer.addDocument(doc);
-                    } catch (SAXException | TikaException e) {
+                    } catch (TikaException e) {
                         System.out.println("Couldn't index: " + path + " reason: " + e.getMessage());
                     }
                     System.out.println("Finished indexing: " + path + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
@@ -85,7 +87,19 @@ public class Main {
             IndexWriter writer = new IndexWriter(index, iwc);
             findDocs(p, indexPath, writer);
             writer.close();
-        } catch (IOException e) {
+
+            DirectoryReader reader = DirectoryReader.open(index);
+            System.out.println(reader.numDocs());
+            IndexSearcher searcher = new IndexSearcher(reader);
+            QueryParser parser = new QueryParser("text", a);
+            Query q = parser.parse("final");
+            ScoreDoc[] hits = searcher.search(q, null, 1000).scoreDocs;
+            System.out.println(hits.length);
+            for (ScoreDoc s : hits) {
+                Document d = searcher.doc(s.doc);
+                System.out.println("found: " + d.get("filename"));
+            }
+        } catch (ParseException | IOException e) {
             System.out.println("Couldn't build index: " + e.getMessage());
         }
     }
