@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="simplesearcher">
+    <output-path>$PROJECT_DIR$/out/artifacts/simplesearcher</output-path>
+    <root id="root">
+      <element id="archive" name="simplesearcher.jar">
+        <element id="module-output" name="simplesearcher" />
+      </element>
+    </root>
+  </artifact>
+</component>
