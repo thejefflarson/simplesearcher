@@ -1,4 +1,4 @@
 package org.propublica.simplesearcher;
 
-public class DirectoryPickerController {
+public class IndexerController {
 }
