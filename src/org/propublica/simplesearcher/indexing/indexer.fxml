@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.TextFlow?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
@@ -8,6 +9,8 @@
             fx:controller="org.propublica.simplesearcher.indexing.IndexerController">
     <ProgressBar fx:id="progress" layoutX="19.0" layoutY="344.0" progress="0.0" AnchorPane.bottomAnchor="18.0"
                  AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"/>
-    <TextFlow AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"
-              AnchorPane.topAnchor="18.0"/>
+    <ScrollPane fx:id="scrollPane" style="-fx-padding: 10 10 10 10;" AnchorPane.bottomAnchor="55.0"
+                AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="18.0">
+        <TextFlow fx:id="textFlow"/>
+    </ScrollPane>
 </AnchorPane>

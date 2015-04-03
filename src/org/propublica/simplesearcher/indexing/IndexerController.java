@@ -2,6 +2,9 @@ package org.propublica.simplesearcher.indexing;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.nio.file.Path;
@@ -9,6 +12,12 @@ import java.nio.file.Path;
 public class IndexerController {
     @FXML
     private ProgressBar progress;
+
+    @FXML
+    private TextFlow textFlow;
+
+    @FXML
+    private ScrollPane scrollPane;
 
     private Indexer indexer;
     private Stage stage;
@@ -18,10 +27,12 @@ public class IndexerController {
     }
 
     public void index(Path path) {
-        System.out.println("opoo");
         this.indexer = new Indexer(path);
-        System.out.println(progress.toString());
         progress.progressProperty().bind(indexer.progressProperty());
+        indexer.messageProperty().addListener(changeEvent -> {
+            textFlow.getChildren().add(new Text("\n" + indexer.getMessage()));
+            scrollPane.setVvalue(1.0f);
+        });
         new Thread(indexer).start();
     }
 }

@@ -17,7 +17,7 @@ public class Main extends Application {
         Parent root = loader.load();
 
         primaryStage.setTitle("Simple Searcher");
-        primaryStage.setScene(new Scene(root, 400, 200));
+        primaryStage.setScene(new Scene(root, 960, 400));
         primaryStage.show();
 
         final Path p = Paths.get("");

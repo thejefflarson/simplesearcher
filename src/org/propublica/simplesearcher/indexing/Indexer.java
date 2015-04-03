@@ -44,7 +44,7 @@ public class Indexer extends Task<Void> {
                 if (path.equals(indexPath)) {
                     return FileVisitResult.SKIP_SUBTREE;
                 } else {
-                    System.out.println("Starting Directory: " + path);
+                    updateMessage("Starting Directory: " + path);
                     return FileVisitResult.CONTINUE;
                 }
             }
@@ -53,7 +53,7 @@ public class Indexer extends Task<Void> {
             public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
                 if (isCancelled()) return FileVisitResult.TERMINATE;
                 if (reader.docFreq(new Term("filename", path.toString())) > 0) {
-                    System.out.println("Already indexed: " + path);
+                    updateMessage("Already indexed: " + path);
                     return FileVisitResult.CONTINUE;
                 }
                 docs.add(path);
@@ -66,9 +66,9 @@ public class Indexer extends Task<Void> {
 
     @Override
     protected Void call() throws Exception {
-        System.out.println("Indexing all documents in: " + path);
+        updateMessage("Indexing all documents in: " + path);
         final Path indexPath = path.resolve(".simplesearcher-index");
-        System.out.println("Creating index in: " + indexPath);
+        updateMessage("Creating index in: " + indexPath);
         Directory index = FSDirectory.open(indexPath);
         Analyzer a = new StandardAnalyzer();
         IndexWriterConfig iwc = new IndexWriterConfig(a);
@@ -89,7 +89,7 @@ public class Indexer extends Task<Void> {
                     doc.add(new Field("filename", path.toString(), StringField.TYPE_STORED));
                     writer.addDocument(doc);
                 } catch (TikaException e) {
-                    System.out.println("Couldn't index: " + path + " reason: " + e.getMessage());
+                    updateMessage("Couldn't index: " + path + " reason: " + e.getMessage());
                 }
                 updateMessage("Finished indexing: " + path + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
                 updateProgress(i, docs.size());
@@ -97,7 +97,7 @@ public class Indexer extends Task<Void> {
                 if (isCancelled()) throw new IOException("Thread was cancelled.");
             }
         } catch (IOException e) {
-            System.out.println("Couldn't build index: " + e.getMessage());
+            updateMessage("Couldn't build index: " + e.getMessage());
         }
         return null;
     }
