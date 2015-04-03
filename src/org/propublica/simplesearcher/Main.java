@@ -32,6 +32,8 @@ import static org.apache.lucene.index.IndexWriterConfig.OpenMode;
 
 public class Main extends Application {
 
+    private Stage primaryStage;
+
     private static void findDocs(Path p, Path indexPath, IndexWriter writer) throws IOException {
         IndexReader reader = DirectoryReader.open(writer, true);
         if(Files.isDirectory(p)) {
@@ -77,6 +79,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("indexing/indexer.fxml"));
         primaryStage.setTitle("Simple Searcher");
         primaryStage.setScene(new Scene(root, 400, 200));
