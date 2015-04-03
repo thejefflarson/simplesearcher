@@ -6,10 +6,8 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
             prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="org.propublica.simplesearcher.indexing.IndexerController">
-    <children>
-        <ProgressBar layoutX="19.0" layoutY="344.0" progress="0.0" AnchorPane.bottomAnchor="18.0"
-                     AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"/>
-        <TextFlow AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"
-                  AnchorPane.topAnchor="18.0"/>
-    </children>
+    <ProgressBar fx:id="progress" layoutX="19.0" layoutY="344.0" progress="0.0" AnchorPane.bottomAnchor="18.0"
+                 AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"/>
+    <TextFlow AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"
+              AnchorPane.topAnchor="18.0"/>
 </AnchorPane>
