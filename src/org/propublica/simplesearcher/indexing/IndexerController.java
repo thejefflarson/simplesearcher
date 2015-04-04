@@ -19,7 +19,6 @@ public class IndexerController {
     @FXML
     private ScrollPane scrollPane;
 
-    private Indexer indexer;
     private Stage stage;
 
     public void setStage(Stage stage) {
@@ -27,10 +26,12 @@ public class IndexerController {
     }
 
     public void index(Path path) {
-        this.indexer = new Indexer(path);
+        final Indexer indexer = new Indexer(path);
         progress.progressProperty().bind(indexer.progressProperty());
-        indexer.messageProperty().addListener(changeEvent -> {
-            textFlow.getChildren().add(new Text("\n" + indexer.getMessage()));
+        Text t = new Text("");
+        textFlow.getChildren().add(t);
+        indexer.messageProperty().addListener((observableValue, s, t1) -> {
+            t.setText(indexer.getLog());
             scrollPane.setVvalue(1.0f);
         });
         new Thread(indexer).start();

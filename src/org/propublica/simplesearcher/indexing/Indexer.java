@@ -26,6 +26,7 @@ import java.util.Date;
 public class Indexer extends Task<Void> {
     private final Path path;
     private final Path indexPath;
+    private final StringBuffer logBuffer = new StringBuffer();
 
     Indexer(Path path) {
         this.path = path;
@@ -44,7 +45,7 @@ public class Indexer extends Task<Void> {
                 if (path.equals(indexPath)) {
                     return FileVisitResult.SKIP_SUBTREE;
                 } else {
-                    updateMessage("Starting Directory: " + path);
+                    log("Starting Directory: " + path);
                     return FileVisitResult.CONTINUE;
                 }
             }
@@ -53,7 +54,7 @@ public class Indexer extends Task<Void> {
             public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
                 if (isCancelled()) return FileVisitResult.TERMINATE;
                 if (reader.docFreq(new Term("filename", path.toString())) > 0) {
-                    updateMessage("Already indexed: " + path);
+                    log("Already indexed: " + path);
                     return FileVisitResult.CONTINUE;
                 }
                 docs.add(path);
@@ -64,11 +65,22 @@ public class Indexer extends Task<Void> {
         return docs;
     }
 
+    private void log(String s) {
+        synchronized (logBuffer) {
+            logBuffer.append("\n".concat(s));
+        }
+        updateMessage(s);
+    }
+
+    public synchronized String getLog() {
+        return logBuffer.toString();
+    }
+
     @Override
     protected Void call() throws Exception {
-        updateMessage("Indexing all documents in: " + path);
+        log("Indexing all documents in: " + path);
         final Path indexPath = path.resolve(".simplesearcher-index");
-        updateMessage("Creating index in: " + indexPath);
+        log("Creating index in: " + indexPath);
         Directory index = FSDirectory.open(indexPath);
         Analyzer a = new StandardAnalyzer();
         IndexWriterConfig iwc = new IndexWriterConfig(a);
@@ -89,15 +101,15 @@ public class Indexer extends Task<Void> {
                     doc.add(new Field("filename", path.toString(), StringField.TYPE_STORED));
                     writer.addDocument(doc);
                 } catch (TikaException e) {
-                    updateMessage("Couldn't index: " + path + " reason: " + e.getMessage());
+                    log("Couldn't index: " + path + " reason: " + e.getMessage());
                 }
-                updateMessage("Finished indexing: " + path + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
+                log("Finished indexing: " + path + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
                 updateProgress(i, docs.size());
                 i++;
                 if (isCancelled()) throw new IOException("Thread was cancelled.");
             }
         } catch (IOException e) {
-            updateMessage("Couldn't build index: " + e.getMessage());
+            log("Couldn't build index: " + e.getMessage());
         }
         return null;
     }

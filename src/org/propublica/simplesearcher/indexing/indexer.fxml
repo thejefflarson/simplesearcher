@@ -9,8 +9,9 @@
             fx:controller="org.propublica.simplesearcher.indexing.IndexerController">
     <ProgressBar fx:id="progress" layoutX="19.0" layoutY="344.0" progress="0.0" AnchorPane.bottomAnchor="18.0"
                  AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0"/>
-    <ScrollPane fx:id="scrollPane" style="-fx-padding: 10 10 10 10;" AnchorPane.bottomAnchor="55.0"
-                AnchorPane.leftAnchor="18.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="18.0">
+    <ScrollPane fx:id="scrollPane" layoutX="15.0" layoutY="14.0" prefHeight="228.0" prefWidth="396.0"
+                style="-fx-padding: 10 10 10 10;" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="18.0"
+                AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="18.0">
         <TextFlow fx:id="textFlow"/>
     </ScrollPane>
 </AnchorPane>
