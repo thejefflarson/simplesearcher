@@ -28,13 +28,13 @@ public class Indexer extends Task<Void> {
     private final Path indexPath;
     private final StringBuffer logBuffer = new StringBuffer();
 
-    Indexer(Path path) {
-        this.path = path;
-        this.indexPath = path.resolve(".simplesearcher-index");
+    Indexer(Path p) {
+        path = p.toAbsolutePath();
+        indexPath = p.resolve(".simplesearcher-index").toAbsolutePath();
     }
 
     private ArrayList<Path> findDocs(IndexReader reader) throws IOException {
-        if (!Files.isDirectory(path)) throw new IOException(path + "is not a directory!");
+        assert (Files.isDirectory(path));
 
         ArrayList<Path> docs = new ArrayList<>();
 
@@ -51,13 +51,13 @@ public class Indexer extends Task<Void> {
             }
 
             @Override
-            public FileVisitResult visitFile(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
+            public FileVisitResult visitFile(Path p, BasicFileAttributes basicFileAttributes) throws IOException {
                 if (isCancelled()) return FileVisitResult.TERMINATE;
-                if (reader.docFreq(new Term("filename", path.toString())) > 0) {
-                    log("Already indexed: " + path);
+                if (reader.docFreq(new Term("filename", subPath(p).toString())) > 0) {
+                    log("Already indexed: " + p);
                     return FileVisitResult.CONTINUE;
                 }
-                docs.add(path);
+                docs.add(p);
                 return FileVisitResult.CONTINUE;
             }
         });
@@ -76,10 +76,14 @@ public class Indexer extends Task<Void> {
         return logBuffer.toString();
     }
 
+    private Path subPath(Path p) {
+        return p.subpath(path.getNameCount(), p.getNameCount());
+    }
+
     @Override
     protected Void call() throws Exception {
+        assert (Files.isDirectory(path));
         log("Indexing all documents in: " + path);
-        final Path indexPath = path.resolve(".simplesearcher-index");
         log("Creating index in: " + indexPath);
         Directory index = FSDirectory.open(indexPath);
         Analyzer a = new StandardAnalyzer();
@@ -91,14 +95,14 @@ public class Indexer extends Task<Void> {
             double i = 1;
             for (Path path : docs) {
                 final Date d = new Date();
-
+                System.out.println(subPath(path));
                 try {
                     Tika t = new Tika();
                     File f = new File(path.toString());
                     Document doc = new Document();
                     String c = t.parseToString(f);
                     doc.add(new Field("text", c, TextField.TYPE_STORED));
-                    doc.add(new Field("filename", path.toString(), StringField.TYPE_STORED));
+                    doc.add(new Field("filename", subPath(path).toString(), StringField.TYPE_STORED));
                     writer.addDocument(doc);
                 } catch (TikaException e) {
                     log("Couldn't index: " + path + " reason: " + e.getMessage());
