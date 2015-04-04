@@ -95,7 +95,6 @@ public class Indexer extends Task<Void> {
             double i = 1;
             for (Path path : docs) {
                 final Date d = new Date();
-                System.out.println(subPath(path));
                 try {
                     Tika t = new Tika();
                     File f = new File(path.toString());
