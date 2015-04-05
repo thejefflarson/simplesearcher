@@ -2,10 +2,8 @@ package org.propublica.simplesearcher.indexing;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
 import java.nio.file.Path;
 
@@ -17,13 +15,7 @@ public class IndexerController {
     private TextFlow textFlow;
 
     @FXML
-    private ScrollPane scrollPane;
-
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
+    private pacScrollPane scrollPane;
 
     public void index(Path path) {
         final Indexer indexer = new Indexer(path);

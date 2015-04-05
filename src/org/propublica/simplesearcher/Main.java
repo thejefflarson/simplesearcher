@@ -25,16 +25,15 @@ public class Main extends Application {
             return;
         }
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("indexing/indexer.fxml"));
-        Parent root = loader.load();
+        FXMLLoader indexer = new FXMLLoader(getClass().getResource("indexing/indexer.fxml"));
+        Parent root = indexer.load();
 
         primaryStage.setTitle("Simple Searcher");
-        primaryStage.setScene(new Scene(root, 960, 400));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
         final Path path = file.toPath();
-        IndexerController c = loader.getController();
-        c.setStage(primaryStage);
+        IndexerController c = indexer.getController();
         c.index(path);
     }
 
