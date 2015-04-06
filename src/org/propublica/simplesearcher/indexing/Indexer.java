@@ -27,7 +27,6 @@ import java.util.Date;
 public class Indexer extends Task<Void> {
     private final StringBuffer logBuffer = new StringBuffer();
 
-
     private ArrayList<Path> findDocs(IndexReader reader) throws IOException {
         Path path = Configuration.getPath();
         assert (Files.isDirectory(path));
