@@ -53,7 +53,6 @@ public class SearcherController implements Initializable {
 
         listView.setCellFactory((value) -> new ScoreDocCell());
         listView.setOnMouseClicked((value) -> {
-            System.out.println("wtf");
             if (value.getClickCount() == 2) {
                 String relative = listView.getSelectionModel().getSelectedItem().get("filename");
                 File file = Configuration.getPath().resolve(relative).toFile();
