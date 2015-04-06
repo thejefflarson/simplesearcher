@@ -1,6 +1,7 @@
 package org.propublica.simplesearcher.searching;
 
 import javafx.collections.FXCollections;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -56,17 +57,21 @@ public class SearcherController implements Initializable {
             if (value.getClickCount() == 2) {
                 String relative = listView.getSelectionModel().getSelectedItem().get("filename");
                 File file = Configuration.getPath().resolve(relative).toFile();
-
-                try {
-                    Desktop.getDesktop().open(file);
-                } catch (IOException e) {
-                    System.out.println(e.getMessage());
+                Task<Void> task = new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        Desktop.getDesktop().open(file);
+                        return null;
+                    }
+                };
+                task.setOnFailed((v) -> {
                     Alert a = new Alert(Alert.AlertType.ERROR);
                     a.setTitle("Error");
                     a.setHeaderText("Could not open: " + file);
-                    a.setContentText(e.getMessage());
+                    a.setContentText(v.toString());
                     a.showAndWait();
-                }
+                });
+                new Thread(task).start();
             }
         });
     }
