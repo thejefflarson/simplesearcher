@@ -12,6 +12,7 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
+import org.propublica.simplesearcher.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,16 +25,11 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Indexer extends Task<Void> {
-    private final Path path;
-    private final Path indexPath;
     private final StringBuffer logBuffer = new StringBuffer();
 
-    Indexer(Path p) {
-        path = p.toAbsolutePath();
-        indexPath = p.resolve(".simplesearcher-index").toAbsolutePath();
-    }
 
     private ArrayList<Path> findDocs(IndexReader reader) throws IOException {
+        Path path = Configuration.getPath();
         assert (Files.isDirectory(path));
 
         ArrayList<Path> docs = new ArrayList<>();
@@ -42,7 +38,7 @@ public class Indexer extends Task<Void> {
             @Override
             public FileVisitResult preVisitDirectory(Path path, BasicFileAttributes basicFileAttributes) throws IOException {
                 if (isCancelled()) return FileVisitResult.TERMINATE;
-                if (path.equals(indexPath)) {
+                if (path.equals(Configuration.getIndexPath())) {
                     return FileVisitResult.SKIP_SUBTREE;
                 } else {
                     log("Starting Directory: " + path);
@@ -77,14 +73,15 @@ public class Indexer extends Task<Void> {
     }
 
     private Path subPath(Path p) {
-        return p.subpath(path.getNameCount(), p.getNameCount());
+        return p.subpath(Configuration.getPath().getNameCount(), p.getNameCount());
     }
 
     @Override
     protected Void call() throws Exception {
-        assert (Files.isDirectory(path));
-        log("Indexing all documents in: " + path);
+        log("Indexing all documents in: " + Configuration.getPath());
+        Path indexPath = Configuration.getIndexPath();
         log("Creating index in: " + indexPath);
+
         Directory index = FSDirectory.open(indexPath);
         Analyzer a = new StandardAnalyzer();
         IndexWriterConfig iwc = new IndexWriterConfig(a);
@@ -103,7 +100,7 @@ public class Indexer extends Task<Void> {
                     doc.add(new Field("text", c, TextField.TYPE_STORED));
                     doc.add(new Field("filename", subPath(path).toString(), StringField.TYPE_STORED));
                     writer.addDocument(doc);
-                } catch (TikaException e) {
+                } catch (TikaException | IOException e) {
                     log("Couldn't index: " + path + " reason: " + e.getMessage());
                 }
                 log("Finished indexing: " + path + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
@@ -112,6 +109,7 @@ public class Indexer extends Task<Void> {
                 if (isCancelled()) throw new IOException("Thread was cancelled.");
             }
         } catch (IOException e) {
+            System.out.println(e.getMessage());
             log("Couldn't build index: " + e.getMessage());
         }
         return null;

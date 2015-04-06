@@ -4,10 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
-import org.apache.lucene.queryparser.classic.ParseException;
+import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
+import org.propublica.simplesearcher.Configuration;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,7 +42,7 @@ public class SearcherController implements Initializable {
             try {
                 ArrayList<Document> s = Searcher.search(textField.getText(), directoryReader);
                 listView.setItems(FXCollections.observableList(s));
-            } catch (ParseException | IOException e) {
+            } catch (QueryNodeException | IOException e) {
                 Alert a = new Alert(Alert.AlertType.ERROR);
                 a.setTitle("Error");
                 a.setHeaderText("Parser error in query");
@@ -47,6 +52,24 @@ public class SearcherController implements Initializable {
         });
 
         listView.setCellFactory((value) -> new ScoreDocCell());
+        listView.setOnMouseClicked((value) -> {
+            System.out.println("wtf");
+            if (value.getClickCount() == 2) {
+                String relative = listView.getSelectionModel().getSelectedItem().get("filename");
+                File file = Configuration.getPath().resolve(relative).toFile();
+
+                try {
+                    Desktop.getDesktop().open(file);
+                } catch (IOException e) {
+                    System.out.println(e.getMessage());
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+                    a.setTitle("Error");
+                    a.setHeaderText("Could not open: " + file);
+                    a.setContentText(e.getMessage());
+                    a.showAndWait();
+                }
+            }
+        });
     }
 
     static public class ScoreDocCell extends ListCell<Document> {

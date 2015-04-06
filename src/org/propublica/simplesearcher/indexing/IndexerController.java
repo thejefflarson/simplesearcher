@@ -8,8 +8,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import java.nio.file.Path;
-
 public class IndexerController {
     @FXML
     private ProgressBar progressBar;
@@ -26,8 +24,8 @@ public class IndexerController {
         done.addListener(changeListener);
     }
 
-    public void index(Path path) {
-        final Indexer indexer = new Indexer(path);
+    public void index() {
+        final Indexer indexer = new Indexer();
         progressBar.progressProperty().bind(indexer.progressProperty());
         Text t = new Text("");
         textFlow.getChildren().add(t);
