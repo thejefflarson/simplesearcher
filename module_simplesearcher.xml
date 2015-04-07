@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_simplesearcher" default="compile.module.simplesearcher">
+  <dirname property="module.simplesearcher.basedir" file="${ant.file.module_simplesearcher}"/>
+  
+  <property name="module.jdk.home.simplesearcher" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.simplesearcher" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.simplesearcher" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.simplesearcher" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
+  
+  <property name="simplesearcher.output.dir" value="${module.simplesearcher.basedir}/out/production/simplesearcher"/>
+  <property name="simplesearcher.testoutput.dir" value="${module.simplesearcher.basedir}/out/test/simplesearcher"/>
+  
+  <path id="simplesearcher.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="simplesearcher.module.production.classpath">
+    <path refid="${module.jdk.classpath.simplesearcher}"/>
+    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+  </path>
+  
+  <path id="simplesearcher.runtime.production.module.classpath">
+    <pathelement location="${simplesearcher.output.dir}"/>
+    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+  </path>
+  
+  <path id="simplesearcher.module.classpath">
+    <path refid="${module.jdk.classpath.simplesearcher}"/>
+    <pathelement location="${simplesearcher.output.dir}"/>
+    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+  </path>
+  
+  <path id="simplesearcher.runtime.module.classpath">
+    <pathelement location="${simplesearcher.testoutput.dir}"/>
+    <pathelement location="${simplesearcher.output.dir}"/>
+    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
+    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
+    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.simplesearcher">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.simplesearcher">
+    <patternset refid="excluded.from.module.simplesearcher"/>
+  </patternset>
+  
+  <path id="simplesearcher.module.sourcepath">
+    <dirset dir="${module.simplesearcher.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.simplesearcher" depends="compile.module.simplesearcher.production,compile.module.simplesearcher.tests" description="Compile module simplesearcher"/>
+  
+  <target name="compile.module.simplesearcher.production" description="Compile module simplesearcher; production classes">
+    <mkdir dir="${simplesearcher.output.dir}"/>
+    <javac destdir="${simplesearcher.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.simplesearcher}/javac">
+      <compilerarg line="${compiler.args.simplesearcher}"/>
+      <bootclasspath refid="simplesearcher.module.bootclasspath"/>
+      <classpath refid="simplesearcher.module.production.classpath"/>
+      <src refid="simplesearcher.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.simplesearcher"/>
+    </javac>
+    
+    <copy todir="${simplesearcher.output.dir}">
+      <fileset dir="${module.simplesearcher.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.simplesearcher.tests" depends="compile.module.simplesearcher.production" description="compile module simplesearcher; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.simplesearcher" description="cleanup module">
+    <delete dir="${simplesearcher.output.dir}"/>
+    <delete dir="${simplesearcher.testoutput.dir}"/>
+  </target>
+</project>
