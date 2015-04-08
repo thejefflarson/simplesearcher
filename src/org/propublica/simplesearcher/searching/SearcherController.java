@@ -12,7 +12,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.propublica.simplesearcher.Configuration;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;

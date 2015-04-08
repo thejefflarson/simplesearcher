@@ -58,15 +58,21 @@
   
   <!-- JDK definitions -->
   
-  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
-  <path id="jdk.classpath.1.8">
-    <fileset dir="${jdk.home.1.8}">
+  <property name="jdk.bin.1.8-32" value="${jdk.home.1.8-32}/bin"/>
+  <path id="jdk.classpath.1.8-32">
+    <fileset dir="${jdk.home.1.8-32}">
+      <include name="jre/lib/jfr.jar"/>
       <include name="jre/lib/jsse.jar"/>
       <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
       <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/javaws.jar"/>
       <include name="jre/lib/jce.jar"/>
       <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
       <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
       <include name="jre/lib/ext/localedata.jar"/>
       <include name="jre/lib/ext/sunpkcs11.jar"/>
       <include name="jre/lib/ext/sunec.jar"/>
@@ -75,13 +81,12 @@
       <include name="jre/lib/ext/zipfs.jar"/>
       <include name="jre/lib/ext/dnsns.jar"/>
       <include name="jre/lib/ext/cldrdata.jar"/>
-      <include name="jre/lib/ext/jfxrt.jar"/>
     </fileset>
   </path>
   
-  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  <property name="project.jdk.home" value="${jdk.home.1.8-32}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8-32}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8-32"/>
   
   
   <!-- Project Libraries -->
@@ -168,7 +173,7 @@
     <property name="artifact.output.simplesearcher" value="${basedir}/out/artifacts/simplesearcher"/>
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="artifact.temp.output.simplesearcher" value="${artifacts.temp.dir}/simplesearcher.jar"/>
-    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8-32}/lib/ant-javafx.jar"/>
   </target>
   
   <target name="clean.artifact.simplesearcher" description="clean simplesearcher artifact output">
@@ -245,7 +250,7 @@
     </fx:jar>
     <fx:deploy width="600" height="400" updatemode="background" outdir="${artifact.temp.output.simplesearcher}/deploy" outfile="simplesearcher" nativeBundles="all">
       <fx:application refid="simplesearcher_id"/>
-      <fx:info title="Simple Searcher" vendor="ProPublica"/>
+      <fx:info title="Simple Searcher" vendor="ProPublica" description="A quick and dirty tool to search documents in a directory."/>
       <fx:resources>
         <fx:fileset refid="all_simplesearcher"/>
       </fx:resources>
