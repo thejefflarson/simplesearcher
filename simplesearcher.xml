@@ -58,35 +58,31 @@
   
   <!-- JDK definitions -->
   
-  <property name="jdk.bin.1.8-32" value="${jdk.home.1.8-32}/bin"/>
-  <path id="jdk.classpath.1.8-32">
-    <fileset dir="${jdk.home.1.8-32}">
-      <include name="jre/lib/jfr.jar"/>
-      <include name="jre/lib/jsse.jar"/>
-      <include name="jre/lib/management-agent.jar"/>
-      <include name="jre/lib/plugin.jar"/>
-      <include name="jre/lib/resources.jar"/>
-      <include name="jre/lib/javaws.jar"/>
-      <include name="jre/lib/jce.jar"/>
-      <include name="jre/lib/rt.jar"/>
-      <include name="jre/lib/jfxswt.jar"/>
-      <include name="jre/lib/charsets.jar"/>
-      <include name="jre/lib/deploy.jar"/>
-      <include name="jre/lib/ext/jfxrt.jar"/>
-      <include name="jre/lib/ext/localedata.jar"/>
-      <include name="jre/lib/ext/sunpkcs11.jar"/>
-      <include name="jre/lib/ext/sunec.jar"/>
-      <include name="jre/lib/ext/nashorn.jar"/>
-      <include name="jre/lib/ext/sunjce_provider.jar"/>
-      <include name="jre/lib/ext/zipfs.jar"/>
-      <include name="jre/lib/ext/dnsns.jar"/>
-      <include name="jre/lib/ext/cldrdata.jar"/>
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="../default/jre/lib/jsse.jar"/>
+      <include name="../default/jre/lib/management-agent.jar"/>
+      <include name="../default/jre/lib/resources.jar"/>
+      <include name="../default/jre/lib/jce.jar"/>
+      <include name="../default/jre/lib/rt.jar"/>
+      <include name="../default/jre/lib/jfxswt.jar"/>
+      <include name="../default/jre/lib/charsets.jar"/>
+      <include name="../default/jre/lib/ext/jfxrt.jar"/>
+      <include name="../default/jre/lib/ext/localedata.jar"/>
+      <include name="../default/jre/lib/ext/sunpkcs11.jar"/>
+      <include name="../default/jre/lib/ext/sunec.jar"/>
+      <include name="../default/jre/lib/ext/nashorn.jar"/>
+      <include name="../default/jre/lib/ext/sunjce_provider.jar"/>
+      <include name="../default/jre/lib/ext/zipfs.jar"/>
+      <include name="../default/jre/lib/ext/dnsns.jar"/>
+      <include name="../default/jre/lib/ext/cldrdata.jar"/>
     </fileset>
   </path>
   
-  <property name="project.jdk.home" value="${jdk.home.1.8-32}"/>
-  <property name="project.jdk.bin" value="${jdk.bin.1.8-32}"/>
-  <property name="project.jdk.classpath" value="jdk.classpath.1.8-32"/>
+  <property name="project.jdk.home" value=""/>
+  <property name="project.jdk.bin" value=""/>
+  <property name="project.jdk.classpath" value=""/>
   
   
   <!-- Project Libraries -->
@@ -173,7 +169,7 @@
     <property name="artifact.output.simplesearcher" value="${basedir}/out/artifacts/simplesearcher"/>
     <mkdir dir="${artifacts.temp.dir}"/>
     <property name="artifact.temp.output.simplesearcher" value="${artifacts.temp.dir}/simplesearcher.jar"/>
-    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8-32}/lib/ant-javafx.jar"/>
+    <taskdef resource="com/sun/javafx/tools/ant/antlib.xml" uri="javafx:com.sun.javafx.tools.ant" classpath="${jdk.home.1.8}/lib/ant-javafx.jar"/>
   </target>
   
   <target name="clean.artifact.simplesearcher" description="clean simplesearcher artifact output">

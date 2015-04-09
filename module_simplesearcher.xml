@@ -2,9 +2,9 @@
 <project name="module_simplesearcher" default="compile.module.simplesearcher">
   <dirname property="module.simplesearcher.basedir" file="${ant.file.module_simplesearcher}"/>
   
-  <property name="module.jdk.home.simplesearcher" value="${project.jdk.home}"/>
-  <property name="module.jdk.bin.simplesearcher" value="${project.jdk.bin}"/>
-  <property name="module.jdk.classpath.simplesearcher" value="${project.jdk.classpath}"/>
+  <property name="module.jdk.home.simplesearcher" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.simplesearcher" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.simplesearcher" value="jdk.classpath.1.8"/>
   
   <property name="compiler.args.simplesearcher" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
   
