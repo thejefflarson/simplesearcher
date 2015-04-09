@@ -2,4 +2,6 @@
 *.iml
 out
 .simplesearcher-index
-
+.DS_Store
+.vagrant/
+simplesearcher.properties

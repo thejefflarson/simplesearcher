@@ -4,8 +4,10 @@ import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -44,11 +46,11 @@ public class SearcherController implements Initializable {
                 ArrayList<Document> s = Searcher.search(textField.getText(), directoryReader);
                 listView.setItems(FXCollections.observableList(s));
             } catch (QueryNodeException | IOException e) {
-//                Alert a = new Alert(Alert.AlertType.ERROR);
-//                a.setTitle("Error");
-//                a.setHeaderText("Parser error in query");
-//                a.setContentText(e.getMessage());
-//                a.showAndWait();
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Error");
+                a.setHeaderText("Parser error in query");
+                a.setContentText(e.getMessage());
+                a.showAndWait();
             }
         });
 
@@ -64,13 +66,13 @@ public class SearcherController implements Initializable {
                         return null;
                     }
                 };
-//                task.setOnFailed((v) -> {
-//                    Alert a = new Alert(Alert.AlertType.ERROR);
-//                    a.setTitle("Error");
-//                    a.setHeaderText("Could not open: " + file);
-//                    a.setContentText(v.toString());
-//                    a.showAndWait();
-//                });
+                task.setOnFailed((v) -> {
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+                    a.setTitle("Error");
+                    a.setHeaderText("Could not open: " + file);
+                    a.setContentText(v.toString());
+                    a.showAndWait();
+                });
                 new Thread(task).start();
             }
         });
