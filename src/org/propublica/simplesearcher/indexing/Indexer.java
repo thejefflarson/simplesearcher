@@ -10,9 +10,11 @@ import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.*;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Bits;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.propublica.simplesearcher.Configuration;
+import org.propublica.simplesearcher.searching.Searcher;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,8 +89,9 @@ public class Indexer extends Task<Void> {
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
         try (IndexWriter writer = new IndexWriter(index, iwc)) {
-            ArrayList<Path> docs = findDocs(DirectoryReader.open(writer, false));
-            double i = 1;
+            IndexReader reader = DirectoryReader.open(writer, false);
+            ArrayList<Path> docs = findDocs(reader);
+            double j = 1;
             for (Path path : docs) {
                 final Date d = new Date();
                 try {
@@ -100,12 +103,24 @@ public class Indexer extends Task<Void> {
                     doc.add(new Field("filename", subPath(path).toString(), StringField.TYPE_STORED));
                     writer.addDocument(doc);
                 } catch (TikaException | IOException e) {
-                    log("Couldn't index: " + path + " reason: " + e.getMessage());
+                    log("Couldn't index: " + subPath(path) + " reason: " + e.getMessage());
                 }
-                log("Finished indexing: " + path + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
-                updateProgress(i, docs.size());
-                i++;
+                log("Finished indexing: " + subPath(path) + " in " + ((new Date().getTime()) - d.getTime()) + "ms");
+                updateProgress(j, docs.size());
+                j++;
                 if (isCancelled()) throw new IOException("Thread was cancelled.");
+            }
+
+            // handle deletions
+            Bits live = MultiFields.getLiveDocs(reader);
+            for(int i = 0; i < reader.maxDoc(); i++) {
+                if(live != null && !live.get(i)) continue;
+
+                String fileName = reader.document(i).get("filename");
+                if(!Configuration.getPath().resolve(fileName).toFile().exists()) {
+                    writer.tryDeleteDocument(reader, i);
+                    log("Deleted missing file: " + fileName);
+                }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
