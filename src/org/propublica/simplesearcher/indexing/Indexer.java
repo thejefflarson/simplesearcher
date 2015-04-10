@@ -88,8 +88,8 @@ public class Indexer extends Task<Void> {
         IndexWriterConfig iwc = new IndexWriterConfig(a);
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
-        try (IndexWriter writer = new IndexWriter(index, iwc)) {
-            IndexReader reader = DirectoryReader.open(writer, false);
+        try (IndexWriter writer = new IndexWriter(index, iwc);
+             IndexReader reader = DirectoryReader.open(writer, false)) {
             ArrayList<Path> docs = findDocs(reader);
             double j = 1;
             for (Path path : docs) {
