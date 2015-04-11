@@ -4,18 +4,20 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.queryparser.flexible.core.QueryNodeException;
 import org.propublica.simplesearcher.Configuration;
 
-import java.awt.Desktop;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -54,13 +56,28 @@ public class SearcherController implements Initializable {
                     a.setContentText(e.getMessage());
                     a.showAndWait();
                 }
-            })
+            });
         });
 
         listView.setCellFactory((value) -> new ScoreDocCell());
         listView.setOnMouseClicked((value) -> {
-            if (value.getClickCount() == 2) {
-                String relative = listView.getSelectionModel().getSelectedItem().get("filename");
+            Document document = listView.getSelectionModel().getSelectedItem();
+            if (value.getButton() == MouseButton.SECONDARY) {
+                Platform.runLater(() -> {
+                    try {
+                        Stage stage = new Stage();
+                        stage.setTitle("SimpleSearcher | Contents of " + document.get("filename"));
+                        FXMLLoader text = new FXMLLoader(getClass().getResource("searching/text.fxml"));
+                        stage.setScene(new Scene(text.load()));
+                        TextController textController = text.getController();
+                        textController.displayText(document.get("text"));
+                        stage.show();
+                    } catch (IOException e) {
+                        System.out.println(e.getMessage());
+                    }
+                });
+            } else if (value.getClickCount() == 2) {
+                String relative = document.get("filename");
                 File file = Configuration.getPath().resolve(relative).toFile();
                 Task<Void> task = new Task<Void>() {
                     @Override

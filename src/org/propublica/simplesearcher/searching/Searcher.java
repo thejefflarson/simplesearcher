@@ -24,8 +24,10 @@ public final class Searcher {
         Query q = parser.parse(term, "text");
         ScoreDoc[] hits = searcher.search(q, null, 1000).scoreDocs;
         ArrayList<Document> arrayList = new ArrayList<>();
-        for (ScoreDoc hit : hits)
+
+        for (ScoreDoc hit : hits) {
             arrayList.add(searcher.doc(hit.doc));
+        }
         return arrayList;
     }
 }
