@@ -1,5 +1,6 @@
 package org.propublica.simplesearcher.searching;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
@@ -42,16 +43,18 @@ public class SearcherController implements Initializable {
         button.setDefaultButton(true);
         button.setOnAction((value) -> {
             assert (directoryReader != null);
-            try {
-                ArrayList<Document> s = Searcher.search(textField.getText(), directoryReader);
-                listView.setItems(FXCollections.observableList(s));
-            } catch (QueryNodeException | IOException e) {
-                Alert a = new Alert(Alert.AlertType.ERROR);
-                a.setTitle("Error");
-                a.setHeaderText("Parser error in query");
-                a.setContentText(e.getMessage());
-                a.showAndWait();
-            }
+            Platform.runLater(() -> {
+                try {
+                    ArrayList<Document> s = Searcher.search(textField.getText(), directoryReader);
+                    listView.setItems(FXCollections.observableList(s));
+                } catch (QueryNodeException | IOException e) {
+                    Alert a = new Alert(Alert.AlertType.ERROR);
+                    a.setTitle("Error");
+                    a.setHeaderText("Parser error in query");
+                    a.setContentText(e.getMessage());
+                    a.showAndWait();
+                }
+            })
         });
 
         listView.setCellFactory((value) -> new ScoreDocCell());
