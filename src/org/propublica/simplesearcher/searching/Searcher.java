@@ -28,6 +28,7 @@ public final class Searcher {
         for (ScoreDoc hit : hits) {
             arrayList.add(searcher.doc(hit.doc));
         }
+
         return arrayList;
     }
 }
