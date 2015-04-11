@@ -67,7 +67,7 @@ public class SearcherController implements Initializable {
                     try {
                         Stage stage = new Stage();
                         stage.setTitle("SimpleSearcher | Contents of " + document.get("filename"));
-                        FXMLLoader text = new FXMLLoader(getClass().getResource("searching/text.fxml"));
+                        FXMLLoader text = new FXMLLoader(getClass().getResource("text.fxml"));
                         stage.setScene(new Scene(text.load()));
                         TextController textController = text.getController();
                         textController.displayText(document.get("text"));

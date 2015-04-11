@@ -1,14 +1,13 @@
 package org.propublica.simplesearcher.searching;
 
 import javafx.fxml.FXML;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+import javafx.scene.control.TextArea;
 
 public class TextController {
     @FXML
-    private TextFlow text;
+    private TextArea textArea;
 
-    public void displayText(String message) {
-        text.getChildren().add(new Text(message));
+    public void displayText(String text) {
+        textArea.setText(text);
     }
 }
