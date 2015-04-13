@@ -15,24 +15,25 @@
   <property name="compiler.args" value=""/>
   <property name="compiler.max.memory" value="700m"/>
   <patternset id="ignored.files">
-    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
     <exclude name="**/*.pyc/**"/>
     <exclude name="**/*.pyo/**"/>
-    <exclude name="**/*.rbc/**"/>
-    <exclude name="**/*~/**"/>
-    <exclude name="**/.DS_Store/**"/>
-    <exclude name="**/.bundle/**"/>
     <exclude name="**/.git/**"/>
-    <exclude name="**/.hg/**"/>
-    <exclude name="**/.svn/**"/>
-    <exclude name="**/CVS/**"/>
-    <exclude name="**/RCS/**"/>
-    <exclude name="**/SCCS/**"/>
-    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/*.hprof/**"/>
     <exclude name="**/_svn/**"/>
-    <exclude name="**/rcs/**"/>
-    <exclude name="**/vssver.scc/**"/>
-    <exclude name="**/vssver2.scc/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
   </patternset>
   <patternset id="library.patterns">
     <include name="*.zip"/>
@@ -61,60 +62,51 @@
   <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
   <path id="jdk.classpath.1.8">
     <fileset dir="${jdk.home.1.8}">
-      <include name="../default/jre/lib/jsse.jar"/>
-      <include name="../default/jre/lib/management-agent.jar"/>
-      <include name="../default/jre/lib/resources.jar"/>
-      <include name="../default/jre/lib/jce.jar"/>
-      <include name="../default/jre/lib/rt.jar"/>
-      <include name="../default/jre/lib/jfxswt.jar"/>
-      <include name="../default/jre/lib/charsets.jar"/>
-      <include name="../default/jre/lib/ext/jfxrt.jar"/>
-      <include name="../default/jre/lib/ext/localedata.jar"/>
-      <include name="../default/jre/lib/ext/sunpkcs11.jar"/>
-      <include name="../default/jre/lib/ext/sunec.jar"/>
-      <include name="../default/jre/lib/ext/nashorn.jar"/>
-      <include name="../default/jre/lib/ext/sunjce_provider.jar"/>
-      <include name="../default/jre/lib/ext/zipfs.jar"/>
-      <include name="../default/jre/lib/ext/dnsns.jar"/>
-      <include name="../default/jre/lib/ext/cldrdata.jar"/>
+      <include name="lib/ant-javafx.jar"/>
+      <include name="lib/dt.jar"/>
+      <include name="lib/javafx-mx.jar"/>
+      <include name="lib/jconsole.jar"/>
+      <include name="lib/packager.jar"/>
+      <include name="lib/sa-jdi.jar"/>
+      <include name="lib/tools.jar"/>
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/deploy.jar"/>
+      <include name="jre/lib/javaws.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfr.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/plugin.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
     </fileset>
   </path>
   
-  <property name="project.jdk.home" value=""/>
-  <property name="project.jdk.bin" value=""/>
-  <property name="project.jdk.classpath" value=""/>
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
   
   
   <!-- Project Libraries -->
   
-  <path id="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath">
-    <pathelement location="${basedir}/lib/lucene-analyzers-common-5.0.0.jar"/>
-    <pathelement location="${basedir}/lib/lucene-core-5.0.0.jar"/>
-  </path>
-  
-  <path id="library.org.apache.lucene:lucene-core:5.0.0.classpath">
-    <pathelement location="${basedir}/lib/lucene-core-5.0.0.jar"/>
-  </path>
-  
-  <path id="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath">
-    <pathelement location="${basedir}/lib/lucene-core-5.0.0.jar"/>
-    <pathelement location="${basedir}/lib/lucene-queries-5.0.0.jar"/>
-    <pathelement location="${basedir}/lib/lucene-queryparser-5.0.0.jar"/>
-    <pathelement location="${basedir}/lib/lucene-sandbox-5.0.0.jar"/>
-  </path>
-  
-  <path id="library.org.apache.tika:tika-core:1.7.classpath">
-    <pathelement location="${basedir}/lib/bndlib-1.43.0.jar"/>
-    <pathelement location="${basedir}/lib/tika-core-1.7.jar"/>
-  </path>
-  
-  <path id="library.org.apache.tika:tika-parsers:1.7.classpath">
+  <path id="library.lib.classpath">
     <pathelement location="${basedir}/lib/apache-mime4j-core-0.7.2.jar"/>
     <pathelement location="${basedir}/lib/apache-mime4j-dom-0.7.2.jar"/>
     <pathelement location="${basedir}/lib/asm-debug-all-4.1.jar"/>
     <pathelement location="${basedir}/lib/aspectjrt-1.8.0.jar"/>
     <pathelement location="${basedir}/lib/bcmail-jdk15-1.45.jar"/>
     <pathelement location="${basedir}/lib/bcprov-jdk15-1.45.jar"/>
+    <pathelement location="${basedir}/lib/bndlib-1.43.0.jar"/>
     <pathelement location="${basedir}/lib/boilerpipe-1.1.0.jar"/>
     <pathelement location="${basedir}/lib/commons-codec-1.9.jar"/>
     <pathelement location="${basedir}/lib/commons-compress-1.8.1.jar"/>
@@ -129,6 +121,17 @@
     <pathelement location="${basedir}/lib/jhighlight-1.0.jar"/>
     <pathelement location="${basedir}/lib/jmatio-1.0.jar"/>
     <pathelement location="${basedir}/lib/juniversalchardet-1.0.3.jar"/>
+    <pathelement location="${basedir}/lib/lucene-analyzers-common-5.0.0-javadoc.jar"/>
+    <pathelement location="${basedir}/lib/lucene-analyzers-common-5.0.0-sources.jar"/>
+    <pathelement location="${basedir}/lib/lucene-analyzers-common-5.0.0.jar"/>
+    <pathelement location="${basedir}/lib/lucene-core-5.0.0-javadoc.jar"/>
+    <pathelement location="${basedir}/lib/lucene-core-5.0.0-sources.jar"/>
+    <pathelement location="${basedir}/lib/lucene-core-5.0.0.jar"/>
+    <pathelement location="${basedir}/lib/lucene-queries-5.0.0.jar"/>
+    <pathelement location="${basedir}/lib/lucene-queryparser-5.0.0-javadoc.jar"/>
+    <pathelement location="${basedir}/lib/lucene-queryparser-5.0.0-sources.jar"/>
+    <pathelement location="${basedir}/lib/lucene-queryparser-5.0.0.jar"/>
+    <pathelement location="${basedir}/lib/lucene-sandbox-5.0.0.jar"/>
     <pathelement location="${basedir}/lib/metadata-extractor-2.6.2.jar"/>
     <pathelement location="${basedir}/lib/netcdf-4.2.20.jar"/>
     <pathelement location="${basedir}/lib/org.apache.felix.scr.annotations-1.6.0.jar"/>
@@ -140,7 +143,11 @@
     <pathelement location="${basedir}/lib/rome-1.0.jar"/>
     <pathelement location="${basedir}/lib/slf4j-api-1.6.1.jar"/>
     <pathelement location="${basedir}/lib/tagsoup-1.2.1.jar"/>
+    <pathelement location="${basedir}/lib/tika-core-1.7-javadoc.jar"/>
+    <pathelement location="${basedir}/lib/tika-core-1.7-sources.jar"/>
     <pathelement location="${basedir}/lib/tika-core-1.7.jar"/>
+    <pathelement location="${basedir}/lib/tika-parsers-1.7-javadoc.jar"/>
+    <pathelement location="${basedir}/lib/tika-parsers-1.7-sources.jar"/>
     <pathelement location="${basedir}/lib/tika-parsers-1.7.jar"/>
     <pathelement location="${basedir}/lib/unidataCommon-4.2.20.jar"/>
     <pathelement location="${basedir}/lib/vorbis-java-core-0.6.jar"/>
@@ -181,56 +188,63 @@
     <copy todir="${artifact.temp.output.simplesearcher}">
       <fileset dir="${simplesearcher.output.dir}"/>
     </copy>
-    <copy file="${basedir}/lib/tika-parsers-1.7.jar" tofile="${artifact.temp.output.simplesearcher}/tika-parsers-1.7.jar"/>
-    <copy file="${basedir}/lib/tika-core-1.7.jar" tofile="${artifact.temp.output.simplesearcher}/tika-core-1.7.jar"/>
-    <copy file="${basedir}/lib/vorbis-java-tika-0.6.jar" tofile="${artifact.temp.output.simplesearcher}/vorbis-java-tika-0.6.jar"/>
-    <copy file="${basedir}/lib/org.apache.felix.scr.annotations-1.6.0.jar" tofile="${artifact.temp.output.simplesearcher}/org.apache.felix.scr.annotations-1.6.0.jar"/>
-    <copy file="${basedir}/lib/netcdf-4.2.20.jar" tofile="${artifact.temp.output.simplesearcher}/netcdf-4.2.20.jar"/>
-    <copy file="${basedir}/lib/unidataCommon-4.2.20.jar" tofile="${artifact.temp.output.simplesearcher}/unidataCommon-4.2.20.jar"/>
-    <copy file="${basedir}/lib/jcip-annotations-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/jcip-annotations-1.0.jar"/>
-    <copy file="${basedir}/lib/slf4j-api-1.6.1.jar" tofile="${artifact.temp.output.simplesearcher}/slf4j-api-1.6.1.jar"/>
-    <copy file="${basedir}/lib/commons-httpclient-3.1.jar" tofile="${artifact.temp.output.simplesearcher}/commons-httpclient-3.1.jar"/>
-    <copy file="${basedir}/lib/commons-logging-1.1.1.jar" tofile="${artifact.temp.output.simplesearcher}/commons-logging-1.1.1.jar"/>
-    <copy file="${basedir}/lib/commons-codec-1.9.jar" tofile="${artifact.temp.output.simplesearcher}/commons-codec-1.9.jar"/>
     <copy file="${basedir}/lib/jmatio-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/jmatio-1.0.jar"/>
-    <copy file="${basedir}/lib/apache-mime4j-core-0.7.2.jar" tofile="${artifact.temp.output.simplesearcher}/apache-mime4j-core-0.7.2.jar"/>
-    <copy file="${basedir}/lib/apache-mime4j-dom-0.7.2.jar" tofile="${artifact.temp.output.simplesearcher}/apache-mime4j-dom-0.7.2.jar"/>
-    <copy file="${basedir}/lib/commons-compress-1.8.1.jar" tofile="${artifact.temp.output.simplesearcher}/commons-compress-1.8.1.jar"/>
-    <copy file="${basedir}/lib/xz-1.5.jar" tofile="${artifact.temp.output.simplesearcher}/xz-1.5.jar"/>
-    <copy file="${basedir}/lib/pdfbox-1.8.8.jar" tofile="${artifact.temp.output.simplesearcher}/pdfbox-1.8.8.jar"/>
-    <copy file="${basedir}/lib/fontbox-1.8.8.jar" tofile="${artifact.temp.output.simplesearcher}/fontbox-1.8.8.jar"/>
-    <copy file="${basedir}/lib/jempbox-1.8.8.jar" tofile="${artifact.temp.output.simplesearcher}/jempbox-1.8.8.jar"/>
-    <copy file="${basedir}/lib/bcmail-jdk15-1.45.jar" tofile="${artifact.temp.output.simplesearcher}/bcmail-jdk15-1.45.jar"/>
-    <copy file="${basedir}/lib/bcprov-jdk15-1.45.jar" tofile="${artifact.temp.output.simplesearcher}/bcprov-jdk15-1.45.jar"/>
-    <copy file="${basedir}/lib/poi-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-3.11.jar"/>
-    <copy file="${basedir}/lib/poi-scratchpad-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-scratchpad-3.11.jar"/>
-    <copy file="${basedir}/lib/poi-ooxml-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-ooxml-3.11.jar"/>
-    <copy file="${basedir}/lib/poi-ooxml-schemas-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-ooxml-schemas-3.11.jar"/>
-    <copy file="${basedir}/lib/xmlbeans-2.6.0.jar" tofile="${artifact.temp.output.simplesearcher}/xmlbeans-2.6.0.jar"/>
     <copy file="${basedir}/lib/tagsoup-1.2.1.jar" tofile="${artifact.temp.output.simplesearcher}/tagsoup-1.2.1.jar"/>
-    <copy file="${basedir}/lib/asm-debug-all-4.1.jar" tofile="${artifact.temp.output.simplesearcher}/asm-debug-all-4.1.jar"/>
-    <copy file="${basedir}/lib/isoparser-1.0.2.jar" tofile="${artifact.temp.output.simplesearcher}/isoparser-1.0.2.jar"/>
-    <copy file="${basedir}/lib/aspectjrt-1.8.0.jar" tofile="${artifact.temp.output.simplesearcher}/aspectjrt-1.8.0.jar"/>
-    <copy file="${basedir}/lib/metadata-extractor-2.6.2.jar" tofile="${artifact.temp.output.simplesearcher}/metadata-extractor-2.6.2.jar"/>
-    <copy file="${basedir}/lib/xmpcore-5.1.2.jar" tofile="${artifact.temp.output.simplesearcher}/xmpcore-5.1.2.jar"/>
-    <copy file="${basedir}/lib/xercesImpl-2.8.1.jar" tofile="${artifact.temp.output.simplesearcher}/xercesImpl-2.8.1.jar"/>
-    <copy file="${basedir}/lib/xml-apis-1.3.03.jar" tofile="${artifact.temp.output.simplesearcher}/xml-apis-1.3.03.jar"/>
-    <copy file="${basedir}/lib/boilerpipe-1.1.0.jar" tofile="${artifact.temp.output.simplesearcher}/boilerpipe-1.1.0.jar"/>
-    <copy file="${basedir}/lib/rome-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/rome-1.0.jar"/>
-    <copy file="${basedir}/lib/jdom-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/jdom-1.0.jar"/>
-    <copy file="${basedir}/lib/vorbis-java-core-0.6.jar" tofile="${artifact.temp.output.simplesearcher}/vorbis-java-core-0.6.jar"/>
+    <copy file="${basedir}/lib/bcmail-jdk15-1.45.jar" tofile="${artifact.temp.output.simplesearcher}/bcmail-jdk15-1.45.jar"/>
+    <copy file="${basedir}/lib/commons-httpclient-3.1.jar" tofile="${artifact.temp.output.simplesearcher}/commons-httpclient-3.1.jar"/>
     <copy file="${basedir}/lib/juniversalchardet-1.0.3.jar" tofile="${artifact.temp.output.simplesearcher}/juniversalchardet-1.0.3.jar"/>
-    <copy file="${basedir}/lib/jhighlight-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/jhighlight-1.0.jar"/>
-    <copy file="${basedir}/lib/java-libpst-0.8.1.jar" tofile="${artifact.temp.output.simplesearcher}/java-libpst-0.8.1.jar"/>
-    <copy file="${basedir}/lib/tika-core-1.7.jar" tofile="${artifact.temp.output.simplesearcher}/tika-core-1.7.jar"/>
-    <copy file="${basedir}/lib/bndlib-1.43.0.jar" tofile="${artifact.temp.output.simplesearcher}/bndlib-1.43.0.jar"/>
-    <copy file="${basedir}/lib/lucene-queryparser-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-queryparser-5.0.0.jar"/>
-    <copy file="${basedir}/lib/lucene-core-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-core-5.0.0.jar"/>
-    <copy file="${basedir}/lib/lucene-queries-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-queries-5.0.0.jar"/>
+    <copy file="${basedir}/lib/xmpcore-5.1.2.jar" tofile="${artifact.temp.output.simplesearcher}/xmpcore-5.1.2.jar"/>
+    <copy file="${basedir}/lib/rome-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/rome-1.0.jar"/>
     <copy file="${basedir}/lib/lucene-sandbox-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-sandbox-5.0.0.jar"/>
-    <copy file="${basedir}/lib/lucene-core-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-core-5.0.0.jar"/>
+    <copy file="${basedir}/lib/commons-logging-1.1.1.jar" tofile="${artifact.temp.output.simplesearcher}/commons-logging-1.1.1.jar"/>
+    <copy file="${basedir}/lib/boilerpipe-1.1.0.jar" tofile="${artifact.temp.output.simplesearcher}/boilerpipe-1.1.0.jar"/>
+    <copy file="${basedir}/lib/tika-parsers-1.7.jar" tofile="${artifact.temp.output.simplesearcher}/tika-parsers-1.7.jar"/>
+    <copy file="${basedir}/lib/slf4j-api-1.6.1.jar" tofile="${artifact.temp.output.simplesearcher}/slf4j-api-1.6.1.jar"/>
+    <copy file="${basedir}/lib/lucene-core-5.0.0-sources.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-core-5.0.0-sources.jar"/>
+    <copy file="${basedir}/lib/xercesImpl-2.8.1.jar" tofile="${artifact.temp.output.simplesearcher}/xercesImpl-2.8.1.jar"/>
+    <copy file="${basedir}/lib/lucene-queryparser-5.0.0-sources.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-queryparser-5.0.0-sources.jar"/>
+    <copy file="${basedir}/lib/metadata-extractor-2.6.2.jar" tofile="${artifact.temp.output.simplesearcher}/metadata-extractor-2.6.2.jar"/>
+    <copy file="${basedir}/lib/org.apache.felix.scr.annotations-1.6.0.jar" tofile="${artifact.temp.output.simplesearcher}/org.apache.felix.scr.annotations-1.6.0.jar"/>
+    <copy file="${basedir}/lib/apache-mime4j-dom-0.7.2.jar" tofile="${artifact.temp.output.simplesearcher}/apache-mime4j-dom-0.7.2.jar"/>
+    <copy file="${basedir}/lib/lucene-queryparser-5.0.0-javadoc.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-queryparser-5.0.0-javadoc.jar"/>
+    <copy file="${basedir}/lib/jdom-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/jdom-1.0.jar"/>
+    <copy file="${basedir}/lib/poi-ooxml-schemas-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-ooxml-schemas-3.11.jar"/>
+    <copy file="${basedir}/lib/lucene-queryparser-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-queryparser-5.0.0.jar"/>
+    <copy file="${basedir}/lib/xmlbeans-2.6.0.jar" tofile="${artifact.temp.output.simplesearcher}/xmlbeans-2.6.0.jar"/>
+    <copy file="${basedir}/lib/lucene-analyzers-common-5.0.0-javadoc.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-analyzers-common-5.0.0-javadoc.jar"/>
+    <copy file="${basedir}/lib/java-libpst-0.8.1.jar" tofile="${artifact.temp.output.simplesearcher}/java-libpst-0.8.1.jar"/>
+    <copy file="${basedir}/lib/xz-1.5.jar" tofile="${artifact.temp.output.simplesearcher}/xz-1.5.jar"/>
+    <copy file="${basedir}/lib/lucene-queries-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-queries-5.0.0.jar"/>
+    <copy file="${basedir}/lib/lucene-analyzers-common-5.0.0-sources.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-analyzers-common-5.0.0-sources.jar"/>
+    <copy file="${basedir}/lib/xml-apis-1.3.03.jar" tofile="${artifact.temp.output.simplesearcher}/xml-apis-1.3.03.jar"/>
+    <copy file="${basedir}/lib/jhighlight-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/jhighlight-1.0.jar"/>
+    <copy file="${basedir}/lib/commons-compress-1.8.1.jar" tofile="${artifact.temp.output.simplesearcher}/commons-compress-1.8.1.jar"/>
+    <copy file="${basedir}/lib/poi-scratchpad-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-scratchpad-3.11.jar"/>
+    <copy file="${basedir}/lib/apache-mime4j-core-0.7.2.jar" tofile="${artifact.temp.output.simplesearcher}/apache-mime4j-core-0.7.2.jar"/>
+    <copy file="${basedir}/lib/fontbox-1.8.8.jar" tofile="${artifact.temp.output.simplesearcher}/fontbox-1.8.8.jar"/>
+    <copy file="${basedir}/lib/jcip-annotations-1.0.jar" tofile="${artifact.temp.output.simplesearcher}/jcip-annotations-1.0.jar"/>
+    <copy file="${basedir}/lib/lucene-core-5.0.0-javadoc.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-core-5.0.0-javadoc.jar"/>
+    <copy file="${basedir}/lib/vorbis-java-core-0.6.jar" tofile="${artifact.temp.output.simplesearcher}/vorbis-java-core-0.6.jar"/>
+    <copy file="${basedir}/lib/vorbis-java-tika-0.6.jar" tofile="${artifact.temp.output.simplesearcher}/vorbis-java-tika-0.6.jar"/>
+    <copy file="${basedir}/lib/bcprov-jdk15-1.45.jar" tofile="${artifact.temp.output.simplesearcher}/bcprov-jdk15-1.45.jar"/>
+    <copy file="${basedir}/lib/asm-debug-all-4.1.jar" tofile="${artifact.temp.output.simplesearcher}/asm-debug-all-4.1.jar"/>
+    <copy file="${basedir}/lib/aspectjrt-1.8.0.jar" tofile="${artifact.temp.output.simplesearcher}/aspectjrt-1.8.0.jar"/>
+    <copy file="${basedir}/lib/isoparser-1.0.2.jar" tofile="${artifact.temp.output.simplesearcher}/isoparser-1.0.2.jar"/>
+    <copy file="${basedir}/lib/jempbox-1.8.8.jar" tofile="${artifact.temp.output.simplesearcher}/jempbox-1.8.8.jar"/>
+    <copy file="${basedir}/lib/commons-codec-1.9.jar" tofile="${artifact.temp.output.simplesearcher}/commons-codec-1.9.jar"/>
+    <copy file="${basedir}/lib/poi-ooxml-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-ooxml-3.11.jar"/>
+    <copy file="${basedir}/lib/tika-core-1.7.jar" tofile="${artifact.temp.output.simplesearcher}/tika-core-1.7.jar"/>
     <copy file="${basedir}/lib/lucene-analyzers-common-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-analyzers-common-5.0.0.jar"/>
+    <copy file="${basedir}/lib/bndlib-1.43.0.jar" tofile="${artifact.temp.output.simplesearcher}/bndlib-1.43.0.jar"/>
+    <copy file="${basedir}/lib/poi-3.11.jar" tofile="${artifact.temp.output.simplesearcher}/poi-3.11.jar"/>
+    <copy file="${basedir}/lib/tika-parsers-1.7-sources.jar" tofile="${artifact.temp.output.simplesearcher}/tika-parsers-1.7-sources.jar"/>
+    <copy file="${basedir}/lib/netcdf-4.2.20.jar" tofile="${artifact.temp.output.simplesearcher}/netcdf-4.2.20.jar"/>
     <copy file="${basedir}/lib/lucene-core-5.0.0.jar" tofile="${artifact.temp.output.simplesearcher}/lucene-core-5.0.0.jar"/>
+    <copy file="${basedir}/lib/pdfbox-1.8.8.jar" tofile="${artifact.temp.output.simplesearcher}/pdfbox-1.8.8.jar"/>
+    <copy file="${basedir}/lib/tika-core-1.7-sources.jar" tofile="${artifact.temp.output.simplesearcher}/tika-core-1.7-sources.jar"/>
+    <copy file="${basedir}/lib/unidataCommon-4.2.20.jar" tofile="${artifact.temp.output.simplesearcher}/unidataCommon-4.2.20.jar"/>
+    <copy file="${basedir}/lib/tika-parsers-1.7-javadoc.jar" tofile="${artifact.temp.output.simplesearcher}/tika-parsers-1.7-javadoc.jar"/>
+    <copy file="${basedir}/lib/tika-core-1.7-javadoc.jar" tofile="${artifact.temp.output.simplesearcher}/tika-core-1.7-javadoc.jar"/>
     <fx:fileset id="all_but_simplesearcher" dir="${artifact.temp.output.simplesearcher}" includes="**/*.jar">
       <exclude name="simplesearcher.jar"/>
     </fx:fileset>
@@ -246,7 +260,7 @@
     </fx:jar>
     <fx:deploy width="600" height="400" updatemode="background" outdir="${artifact.temp.output.simplesearcher}/deploy" outfile="simplesearcher" nativeBundles="all">
       <fx:application refid="simplesearcher_id"/>
-      <fx:info title="Simple Searcher" vendor="ProPublica" description="A quick and dirty tool to search documents in a directory."/>
+      <fx:info title="Simple Searcher" vendor="ProPublica"/>
       <fx:resources>
         <fx:fileset refid="all_simplesearcher"/>
       </fx:resources>

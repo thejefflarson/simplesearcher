@@ -2,9 +2,9 @@
 <project name="module_simplesearcher" default="compile.module.simplesearcher">
   <dirname property="module.simplesearcher.basedir" file="${ant.file.module_simplesearcher}"/>
   
-  <property name="module.jdk.home.simplesearcher" value="${jdk.home.1.8}"/>
-  <property name="module.jdk.bin.simplesearcher" value="${jdk.bin.1.8}"/>
-  <property name="module.jdk.classpath.simplesearcher" value="jdk.classpath.1.8"/>
+  <property name="module.jdk.home.simplesearcher" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.simplesearcher" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.simplesearcher" value="${project.jdk.classpath}"/>
   
   <property name="compiler.args.simplesearcher" value="-encoding UTF-8 -source 8 ${compiler.args}"/>
   
@@ -17,40 +17,24 @@
   
   <path id="simplesearcher.module.production.classpath">
     <path refid="${module.jdk.classpath.simplesearcher}"/>
-    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+    <path refid="library.lib.classpath"/>
   </path>
   
   <path id="simplesearcher.runtime.production.module.classpath">
     <pathelement location="${simplesearcher.output.dir}"/>
-    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+    <path refid="library.lib.classpath"/>
   </path>
   
   <path id="simplesearcher.module.classpath">
     <path refid="${module.jdk.classpath.simplesearcher}"/>
     <pathelement location="${simplesearcher.output.dir}"/>
-    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+    <path refid="library.lib.classpath"/>
   </path>
   
   <path id="simplesearcher.runtime.module.classpath">
     <pathelement location="${simplesearcher.testoutput.dir}"/>
     <pathelement location="${simplesearcher.output.dir}"/>
-    <path refid="library.org.apache.lucene:lucene-core:5.0.0.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-analyzers-common:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-core:1.7.classpath"/>
-    <path refid="library.org.apache.lucene:lucene-queryparser:5.0.0.classpath"/>
-    <path refid="library.org.apache.tika:tika-parsers:1.7.classpath"/>
+    <path refid="library.lib.classpath"/>
   </path>
   
   
