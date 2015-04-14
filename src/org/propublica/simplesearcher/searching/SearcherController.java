@@ -49,7 +49,6 @@ public class SearcherController implements Initializable {
                 try {
                     ArrayList<Document> s = Searcher.search(textField.getText(), directoryReader);
                     listView.setItems(FXCollections.observableList(s));
-                    Platform.runLater(() -> listView.requestLayout());
                 } catch (QueryNodeException | IOException e) {
                     Alert a = new Alert(Alert.AlertType.ERROR);
                     a.setTitle("Error");
@@ -105,6 +104,8 @@ public class SearcherController implements Initializable {
             super.updateItem(item, empty);
             if (item != null) {
                 setText(item.get("filename"));
+            } else {
+                setText("");
             }
         }
     }
