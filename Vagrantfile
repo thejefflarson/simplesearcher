@@ -6,4 +6,9 @@ Vagrant.configure("2") do |config|
     echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 boolean true" | sudo debconf-set-selections
     sudo DEBIAN_FRONTEND=noninteractive apt-get install -y -q oracle-java8-installer xdg-utils ant
   }
+  config.vm.provision "shell", run: "always", inline: %Q{
+    cd /vagrant/ && \
+    echo "jdk.home.1.8=/usr/lib/jvm/java-8-oracle/" > ./simplesearcher.properties && \
+    ant -f simplesearcher.xml
+  }
 end
