@@ -104,6 +104,8 @@ public class SearcherController implements Initializable {
             super.updateItem(item, empty);
             if (item != null) {
                 setText(item.get("filename"));
+            } else {
+                setText("");
             }
         }
     }
