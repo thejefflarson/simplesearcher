@@ -14,7 +14,6 @@ import org.apache.lucene.util.Bits;
 import org.apache.tika.Tika;
 import org.apache.tika.exception.TikaException;
 import org.propublica.simplesearcher.Configuration;
-import org.propublica.simplesearcher.searching.Searcher;
 
 import java.io.File;
 import java.io.IOException;
