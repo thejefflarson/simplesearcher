@@ -31,7 +31,7 @@ public class Main extends Application {
 
         FXMLLoader indexer = new FXMLLoader(getClass().getResource("indexing/indexer.fxml"));
         Parent root = indexer.load();
-        primaryStage.setTitle("Simple Searcher");
+        primaryStage.setTitle("Simple Searcher: " + Configuration.getPath().toString());
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
