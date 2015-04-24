@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.apache.lucene.document.Document;
@@ -79,23 +80,33 @@ public class SearcherController implements Initializable {
             } else if (value.getClickCount() == 2) {
                 String relative = document.get("filename");
                 File file = Configuration.getPath().resolve(relative).toFile();
-                Task<Void> task = new Task<Void>() {
-                    @Override
-                    protected Void call() throws Exception {
-                        Desktop.getDesktop().open(file);
-                        return null;
-                    }
-                };
-                task.setOnFailed((v) -> {
-                    Alert a = new Alert(Alert.AlertType.ERROR);
-                    a.setTitle("Error");
-                    a.setHeaderText("Could not open: " + file);
-                    a.setContentText(v.toString());
-                    a.showAndWait();
-                });
-                new Thread(task).start();
+                openFile(file);
             }
         });
+        listView.setOnKeyPressed((keyEvent) -> {
+            if (keyEvent.getCode() == KeyCode.SPACE) {
+                Document document = listView.getSelectionModel().getSelectedItem();
+                openFile(Configuration.getPath().resolve(document.get("filename")).getParent().toFile());
+            }
+        });
+    }
+
+    private void openFile(File file) {
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                Desktop.getDesktop().open(file);
+                return null;
+            }
+        };
+        task.setOnFailed((v) -> {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.setTitle("Error");
+            a.setHeaderText("Could not open: " + file);
+            a.setContentText(v.toString());
+            a.showAndWait();
+        });
+        new Thread(task).start();
     }
 
     static public class ScoreDocCell extends ListCell<Document> {
