@@ -103,7 +103,7 @@ public class SearcherController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR);
             a.setTitle("Error");
             a.setHeaderText("Could not open: " + file);
-            a.setContentText(v.toString());
+            a.setContentText("You should hit space bar to view the directory after hitting ok.");
             a.showAndWait();
         });
         new Thread(task).start();
