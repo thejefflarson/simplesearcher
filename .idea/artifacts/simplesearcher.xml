@@ -1,0 +1,26 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="simplesearcher">
+    <output-path>$PROJECT_DIR$/out/artifacts/simplesearcher</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="alias" value="" />
+        <option name="appClass" value="org.propublica.simplesearcher.Main" />
+        <option name="description" value="" />
+        <option name="enabledSigning" value="true" />
+        <option name="htmlParamFile" value="" />
+        <option name="keystore" value="" />
+        <option name="nativeBundle" value="all" />
+        <option name="paramFile" value="" />
+        <option name="selfSigning" value="false" />
+        <option name="title" value="Simple Searcher" />
+        <option name="vendor" value="ProPublica" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="simplesearcher.jar">
+        <element id="module-output" name="simplesearcher" />
+      </element>
+      <element id="library" level="project" name="lib" />
+    </root>
+  </artifact>
+</component>

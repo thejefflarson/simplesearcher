@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="org.apache.tika:tika-core:1.11" type="repository">
+    <properties maven-id="org.apache.tika:tika-core:1.11" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tika/tika-core/1.11/tika-core-1.11.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/biz/aQute/bndlib/1.43.0/bndlib-1.43.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
