@@ -2,12 +2,14 @@ package org.propublica.simplesearcher;
 
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Configuration {
+    public static Version LUCENE_VERSION = Version.LUCENE_40;
     private static Path path;
 
     public static void setPath(Path p) {
@@ -25,6 +27,6 @@ public class Configuration {
     }
 
     static public Directory getDirectory() throws IOException {
-        return FSDirectory.open(getIndexPath());
+        return FSDirectory.open(getIndexPath().toFile());
     }
 }

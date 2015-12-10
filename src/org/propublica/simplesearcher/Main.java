@@ -8,15 +8,22 @@ import javafx.scene.Scene;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.IndexUpgrader;
+import org.apache.lucene.store.Directory;
+import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
 import org.propublica.simplesearcher.indexing.IndexerController;
 import org.propublica.simplesearcher.searching.SearcherController;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Path;
 
 public class Main extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception {
+
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("SimpleSearcher: Choose a directory to index");
 
@@ -28,6 +35,12 @@ public class Main extends Application {
         }
 
         Configuration.setPath(file.toPath());
+        File indexPath = Configuration.getIndexPath().toFile();
+        if(indexPath.isDirectory()) {
+            Directory index = FSDirectory.open(indexPath);
+            IndexUpgrader iu = new IndexUpgrader(index, Configuration.LUCENE_VERSION, new PrintStream(System.out), true);
+            iu.upgrade();
+        }
 
         FXMLLoader indexer = new FXMLLoader(getClass().getResource("indexing/indexer.fxml"));
         Parent root = indexer.load();
