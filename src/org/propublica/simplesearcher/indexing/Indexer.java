@@ -18,7 +18,6 @@ import org.propublica.simplesearcher.Configuration;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -83,11 +82,10 @@ public class Indexer extends Task<Void> {
         log("Indexing all documents in: " + Configuration.getPath());
         Path indexPath = Configuration.getIndexPath();
         log("Creating index in: " + indexPath);
-        Directory index = FSDirectory.open(indexPath.toFile());
+        Directory index = FSDirectory.open(indexPath);
 
-
-        Analyzer a = new StandardAnalyzer(Configuration.LUCENE_VERSION);
-        IndexWriterConfig iwc = new IndexWriterConfig(Configuration.LUCENE_VERSION, a);
+        Analyzer a = new StandardAnalyzer();
+        IndexWriterConfig iwc = new IndexWriterConfig(a);
         iwc.setOpenMode(IndexWriterConfig.OpenMode.CREATE_OR_APPEND);
 
         try (IndexWriter writer = new IndexWriter(index, iwc);

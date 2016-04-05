@@ -1,16 +1,16 @@
 <component name="libraryTable">
-  <library name="org.apache.tika:tika-parsers:1.11" type="repository">
-    <properties maven-id="org.apache.tika:tika-parsers:1.11" />
+  <library name="org.apache.tika:tika-bundle:1.12" type="repository">
+    <properties maven-id="org.apache.tika:tika-bundle:1.12" />
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tika/tika-parsers/1.11/tika-parsers-1.11.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tika/tika-core/1.11/tika-core-1.11.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tika/tika-bundle/1.12/tika-bundle-1.12.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tika/tika-core/1.12/tika-core-1.12.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/tika/tika-parsers/1.12/tika-parsers-1.12.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/gagravarr/vorbis-java-tika/0.6/vorbis-java-tika-0.6.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/healthmarketscience/jackcess/jackcess/2.1.2/jackcess-2.1.2.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/commons-lang/commons-lang/2.6/commons-lang-2.6.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/commons-logging/commons-logging/1.1.3/commons-logging-1.1.3.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/healthmarketscience/jackcess/jackcess-encrypt/2.1.1/jackcess-encrypt-2.1.1.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/bouncycastle/bcprov-jdk15on/1.52/bcprov-jdk15on-1.52.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/felix/org.apache.felix.scr.annotations/1.6.0/org.apache.felix.scr.annotations-1.6.0.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/jmatio/jmatio/1.0/jmatio-1.0.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/james/apache-mime4j-core/0.7.2/apache-mime4j-core-0.7.2.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/james/apache-mime4j-dom/0.7.2/apache-mime4j-dom-0.7.2.jar!/" />
@@ -34,8 +34,9 @@
       <root url="jar://$MAVEN_REPOSITORY$/com/drewnoakes/metadata-extractor/2.8.0/metadata-extractor-2.8.0.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/adobe/xmp/xmpcore/5.1.2/xmpcore-5.1.2.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/de/l3s/boilerpipe/boilerpipe/1.1.0/boilerpipe-1.1.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/rome/rome/1.0/rome-1.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/jdom/jdom/1.0/jdom-1.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/rometools/rome/1.5.1/rome-1.5.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/rometools/rome-utils/1.5.1/rome-utils-1.5.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/jdom/jdom/2.0.2/jdom-2.0.2.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/gagravarr/vorbis-java-core/0.6/vorbis-java-core-0.6.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/juniversalchardet/juniversalchardet/1.0.3/juniversalchardet-1.0.3.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/codelibs/jhighlight/1.0.2/jhighlight-1.0.2.jar!/" />
@@ -57,7 +58,6 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/cxf/cxf-rt-frontend-jaxrs/3.0.3/cxf-rt-frontend-jaxrs-3.0.3.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/xerial/sqlite-jdbc/3.8.10.1/sqlite-jdbc-3.8.10.1.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/opennlp/opennlp-tools/1.5.3/opennlp-tools-1.5.3.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/opennlp/opennlp-maxent/3.0.3/opennlp-maxent-3.0.3.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/net/sf/jwordnet/jwnl/1.3.3/jwnl-1.3.3.jar!/" />
@@ -65,7 +65,7 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-exec/1.3/commons-exec-1.3.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/json-simple/json-simple/1.1.1/json-simple-1.1.1.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/json/json/20140107/json-20140107.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.7/slf4j-api-1.7.7.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/edu/ucar/netcdf4/4.5.5/netcdf4-4.5.5.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/edu/ucar/cdm/4.5.5/cdm-4.5.5.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/edu/ucar/udunits/4.5.5/udunits-4.5.5.jar!/" />
@@ -95,36 +95,6 @@
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/sis/storage/sis-storage/0.5/sis-storage-0.5.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/sis/core/sis-metadata/0.5/sis-metadata-0.5.jar!/" />
       <root url="jar://$MAVEN_REPOSITORY$/org/apache/sis/core/sis-referencing/0.5/sis-referencing-0.5.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/ctakes/ctakes-core/3.2.2/ctakes-core-3.2.2.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/ctakes/ctakes-core-res/3.2.2/ctakes-core-res-3.2.2.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/ctakes/ctakes-type-system/3.2.2/ctakes-type-system-3.2.2.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/uimaj-core/2.4.0/uimaj-core-2.4.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-context/3.1.2.RELEASE/spring-context-3.1.2.RELEASE.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-aop/3.1.2.RELEASE/spring-aop-3.1.2.RELEASE.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/aopalliance/aopalliance/1.0/aopalliance-1.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-asm/3.1.2.RELEASE/spring-asm-3.1.2.RELEASE.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/3.1.2.RELEASE/spring-beans-3.1.2.RELEASE.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/3.1.2.RELEASE/spring-core-3.1.2.RELEASE.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-expression/3.1.2.RELEASE/spring-expression-3.1.2.RELEASE.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/tw/edu/ntu/csie/libsvm/3.1/libsvm-3.1.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/uimafit-core/2.1.0/uimafit-core-2.1.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/ctakes/ctakes-utils/3.2.2/ctakes-utils-3.2.2.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/4.0.0/lucene-core-4.0.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-queries/4.0.0/lucene-queries-4.0.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-queryparser/4.0.0/lucene-queryparser-4.0.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-sandbox/4.0.0/lucene-sandbox-4.0.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/jakarta-regexp/jakarta-regexp/1.4/jakarta-regexp-1.4.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-analyzers-common/4.0.0/lucene-analyzers-common-4.0.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/uimaj-tools/2.6.0/uimaj-tools-2.6.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/uimaj-cpe/2.4.0/uimaj-cpe-2.4.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/uimaj-adapter-vinci/2.4.0/uimaj-adapter-vinci-2.4.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/jVinci/2.4.0/jVinci-2.4.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/cleartk/cleartk-util/2.0.0/cleartk-util-2.0.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/edu/mit/findstruct/findstructapi/0.0.1/findstructapi-0.0.1.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/com/googlecode/armbrust-file-utils/sqlwrapper/0.0.1/sqlwrapper-0.0.1.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/net/sourceforge/openai/openaifsm/0.0.1/openaifsm-0.0.1.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/uimaj-examples/2.4.0/uimaj-examples-2.4.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/org/apache/uima/uimaj-document-annotation/2.4.0/uimaj-document-annotation-2.4.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

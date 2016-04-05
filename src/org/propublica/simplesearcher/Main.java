@@ -11,14 +11,12 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexUpgrader;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
 import org.propublica.simplesearcher.indexing.IndexerController;
 import org.propublica.simplesearcher.searching.SearcherController;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
-import java.nio.file.Path;
+import org.apache.lucene.util.InfoStream;
 
 public class Main extends Application {
     @Override
@@ -37,8 +35,8 @@ public class Main extends Application {
         Configuration.setPath(file.toPath());
         File indexPath = Configuration.getIndexPath().toFile();
         if(indexPath.isDirectory()) {
-            Directory index = FSDirectory.open(indexPath);
-            IndexUpgrader iu = new IndexUpgrader(index, Configuration.LUCENE_VERSION, new PrintStream(System.out), true);
+            Directory index = FSDirectory.open(indexPath.toPath());
+            IndexUpgrader iu = new IndexUpgrader(index, InfoStream.getDefault(), true);
             iu.upgrade();
         }
 

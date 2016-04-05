@@ -9,8 +9,6 @@ import org.apache.lucene.queryparser.flexible.standard.StandardQueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.util.Version;
-import org.propublica.simplesearcher.Configuration;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,10 +19,10 @@ public final class Searcher {
 
     public static ArrayList<Document> search(String term, DirectoryReader directoryReader) throws QueryNodeException, IOException {
         IndexSearcher searcher = new IndexSearcher(directoryReader);
-        Analyzer a = new StandardAnalyzer(Configuration.LUCENE_VERSION);
+        Analyzer a = new StandardAnalyzer();
         StandardQueryParser parser = new StandardQueryParser(a);
         Query q = parser.parse(term, "text");
-        ScoreDoc[] hits = searcher.search(q, null, 1000).scoreDocs;
+        ScoreDoc[] hits = searcher.search(q, 1000).scoreDocs;
         ArrayList<Document> arrayList = new ArrayList<>();
 
         for (ScoreDoc hit : hits) {
